@@ -1,0 +1,46 @@
+@charset "utf-8";
+body {
+   margin: 0px;
+   padding: 0px;
+}
+div{position:static}
+body,div,input,table,select,textarea,p{
+   font-size:12px; font-family:Geneva,Verdana,Helvetica, sans-serif;cursor:default;
+}
+
+input.sorts{width:48px;}
+
+a, label{cursor:pointer;}
+form {
+	margin: 0px;
+	padding: 0px;
+}
+
+.Max{width:99%;margin-top:8px;background-color: #e3e3ff;}
+.TB .C{background-color:white;}/**data line bgcolor**/
+.in{
+   width: 180px;
+}
+.sortTh{cursor:pointer;}
+.inChk{border: 0px;}
+.TB .item{height:25px;}
+
+.sorts{display:none}
+.sorts, .sortDiv{width:43px;text-align:center;}
+
+/*for left menu*/
+.menuA1 .R, .menuA0 .R{width:15px;}
+.lnk0, .lnk1, .lnk2 {
+   background: url(../img/menu_dot.gif) 8px 5px no-repeat;
+   padding-left: 25px;
+   line-height: 22px;
+   cursor: pointer;
+   margin: 1px 5px 0px 8px;
+   width:120px;
+}
+.menuA0, .menuA1{
+   line-height: 24px;
+   margin-bottom: 1px;
+   cursor: pointer;
+}
+.menuL{overflow-x:hidden;}

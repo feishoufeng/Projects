@@ -1,0 +1,91 @@
+@charset "utf-8";
+/*输入表单左侧表头*/
+th {
+   text-align: right; font-weight:normal;
+   background-color: #f7f4e6;
+}
+/*按钮*/
+.btn{
+   background-image: url(btn_bg.gif);
+   border: 1px #666 solid;
+   color:#56420b;
+   font-weight:bold;
+   height: 22px;
+}
+.btn:hover{background-image: url(btn_bg_a.gif);color:#000;border-color:red}
+
+/*中部大表格样式(解释：  .T 为表头样式，    .C为表正文样式   .B为表脚样式　下同)*/
+.TB {
+   color: #003300;
+   border: 1px #cbba7b solid;
+   border-top-width: 0px;
+}
+.TB .T{color: #a1832f; font-weight:bold; height: 25px;text-align: center;background: url(tit_bg.gif) repeat-x;}
+.TB .T td{padding:0px 3px;}
+.TB .C td, .TB .COver td{border-bottom:1px #CCf solid;border-right:1px #eee solid;}
+.TB .CSel td{border-bottom:1px white solid;}
+
+.TB .CT{
+   background-color: #f8f6ef;color:#856d29;
+}
+
+.TB .COver{background-color: #edeebd;}
+.TB .CSel{background-color: #e8e1a8;}
+.TB .B, .TB .B a{
+   background-color:#f7f5e1;
+   color:#856d29;
+}
+
+/***** 中部列表数据显示样式 (Tit代表表头， L, C, R分别代表左，中，右) *******/
+.cTit .L{background: url(tit_l.gif) left no-repeat;width:25px;}
+.cTit .C{
+   background: url(tit_c.gif) repeat-x;
+   line-height: 27px;
+   font-weight: bold;
+   color: #856d29;
+   text-align: center;
+   letter-spacing: 3px;
+}
+.cTit .R{background:url(tit_r.gif) right no-repeat;width:25px;}
+
+/*操作成功或失败后的提示样式*/
+.Tip {
+   color: #FF0000;
+   background-color: #FFFF99;
+   border: 1px dotted #FF0000;
+   margin-top: 8px;
+   padding: 3px;
+   padding-left: 12px;
+}
+
+/***** 文字链接样式 *******/
+a{
+   color:#a1832f;
+}
+a:hover{
+   color:#F30;
+}
+
+/*文字样式*/
+.txtA{color: red;}
+.txtB{color:green;}
+.txtC{
+	color: #666;
+}
+.txtD{
+    font-size:14px;
+    color:#990000;
+    background-color:#ffddaa;
+}
+
+/************* 输入框样式 *****************/
+input, textarea, .zltIn0{
+  border: 1px #aaa solid;
+}
+
+/***** 输入框鼠标事件样式 *****/
+.zltIn1, input[type="text"]:focus, input[type="password"]:focus, textarea:focus{
+	border: 1px #cbba7b solid;
+	color: #db0d0d;
+	background-color: #fcf4da;
+}

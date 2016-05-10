@@ -1,0 +1,22 @@
+@charset "utf-8";
+.menuA0, .menuA1{
+   line-height: 24px;
+   margin-bottom: 1px;
+   cursor: pointer;
+}
+.menuA0 .L, .menuA1 .L{
+   background: url(menu_l.gif) no-repeat;
+   padding-left: 15px;
+   color: #5b865a;font-weight:bold;
+}
+.menuA0 .R{background: url(menu_r0.gif) right no-repeat;}
+.menuA1 .R{background: url(menu_r1.gif) right no-repeat;}
+.menuA1 .R, .menuA0 .R{width:15px;}
+
+
+.menuB{ background-color: #e2f6da;margin-bottom: 5px;padding: 5px 0px 8px 0px;}/*menu div bg*/
+.menuL{padding: 0px;background: url(mm_bg.gif);}/*left bg*/
+.lnk0, .lnk1, .lnk2{border: 1px #e2f6da solid;color:#367752;}
+.lnk0{}/*default*/
+.lnk1{background-color: white;}/*mouseover*/
+.lnk2{background-color: white;border-color:#6ac335}/*clicked*/

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jdiy-config xmlns="http://www.jdiy.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jdiy.org/jdiy.xsd">
+	<databases default="def" showSql="true">
+
+		<!-- JDiy 框架支持的数据库类型(type)有: MySQL | MsSQL | PostgreSQL | Oracle | SQLite | DB2 -->
+
+		<database name="def">
+			<type>MySQL</type>
+			<host>127.0.0.1</host>
+			<port>3306</port>
+			<name>cash_flow</name>
+			<uid>root</uid>
+			<pwd>root</pwd>
+			<maxPools>32</maxPools>
+			<maxed>WAIT</maxed>
+		</database>
+
+		<!--以下为其它数据库的配置代码示例: -->
+		<!-- <database name="MsSQL"> <type>MSSQL</type> <host>192.168.0.87</host> 
+			<port>1433</port> <name>jdiy_db</name> <uid>sa</uid> <pwd>123456</pwd> <maxPools>32</maxPools> 
+			<maxed>WAIT</maxed> </database> <database name="postgres"> <type>PostgreSQL</type> 
+			<host>127.0.0.1</host> <port>5432</port> <name>jdiy_db</name> <uid>postgres</uid> 
+			<pwd>123456</pwd> <maxPools>32</maxPools> <maxed>WAIT</maxed> </database> 
+			<database name="oracle"> <type>Oracle</type> <host>192.168.0.87</host> <port>1521</port> 
+			<name>ORCL</name> <uid>JDIY_DB</uid> <pwd>123456</pwd> <maxPools>32</maxPools> 
+			<maxed>WAIT</maxed> </database> <database name="SQLite"> <type>SQLite</type> 
+			<driver>org.sqlite.JDBC</driver> <url>$CLASSPATH:jdiy_db.db</url> </database> 
+			<database name="SQLite2"> <type>sqlite</type> <url>d:/java/myapps/demo/jdiy_db.db</url> 
+			</database> -->
+	</databases>
+
+	<!--用户自定义的属性.根据需要随便定义，在程序中通过 app.getProp(String)来获取配置值。 -->
+	<!-- <user-properties> <prop name="test">123</prop> </user-properties> -->
+
+
+	<!--以下配置段 （jdiy-properties, jdiy-actions, jdiy-interceptors）仅在javaEE/WEB环境下需要， 
+		如使用JDiy做javaSE开发，以下代码片段均可注释掉或去掉 -->
+
+	<jdiy-properties>
+		<!--JDiy上下文保留活动时间(以分钟为单位) -->
+		<keepActive>10</keepActive>
+		<!--管理平台默认皮肤样式 -->
+		<skin>white</skin>
+		<!--会话保持方式：cookie | session | both -->
+		<varKeep>cookie</varKeep>
+		<!-- 会话过期时间(varKeep=cookie时有效). -->
+		<varExpires>-1</varExpires>
+		<!--for文件上传：单次请求最大允许上传的字节数. -->
+		<globalUploadLimit>309600</globalUploadLimit>
+		<!--for文件上传：是否重命名上传文件（默认值为false.） -->
+		<renameUploadFile>true</renameUploadFile>
+
+		<!-- 以下为防止SQL注入或RSS攻击的安全性检测项，详见JDiy教程。 -->
+		<inject-check></inject-check>
+		<inject-uncheck>/JDiy_bin/:</inject-uncheck>
+		<inject-tips>FILE:/WEB-INF/sql-inj.html</inject-tips>
+		<rss-check></rss-check>
+		<rss-uncheck>/JDiy_bin/:</rss-uncheck>
+		<rss-tips>FILE:/WEB-INF/rss.html</rss-tips>
+
+		<!-- 管理平台工作目录.修改后需同时将web根目录中的jdiy-admin文件夹重命名. -->
+		<loginPath>/jdiy-admin/</loginPath>
+		<!--管理平台显示标题 -->
+		<web.title>JDiy网站管理系统开发平台</web.title>
+		<!--开发者登录帐号 -->
+		<devUid>jdiy</devUid>
+		<!--开发者登录密码。明码形式仅允许;127.0.0.1本机IP登录(不能是localhost)，如需使用其它地址登录，请将密码改为Md5 32位大写. -->
+		<devPwd>jdiy888</devPwd>
+	</jdiy-properties>
+
+	<!--JDiy 全局拦截器配置区: -->
+	<!-- <jdiy-interceptors>
+		<interceptor>jdiy.demo.interceptor.GlobalInterceptor</interceptor>
+	</jdiy-interceptors> -->
+
+	<!--JDiy Action 配置（推荐第二种形式，使用 *占位符，来减少配置Action的代码量）: -->
+	<jdiy-actions>
+		<!-- <action url="/_demo/helloWorld.jd" class="jdiy.demo.action.HelloWorld" 
+			method="hello"/> -->
+		<action url="/*/*.jd" class="com.zhuobo.account.action.{1}" method="{2}" />
+	</jdiy-actions>
+</jdiy-config>

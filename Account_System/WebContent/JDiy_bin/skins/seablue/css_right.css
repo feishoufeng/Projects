@@ -1,0 +1,91 @@
+@charset "utf-8";
+/*输入表单左侧表头*/
+th {
+   text-align: right; font-weight:normal;
+   background-color: #e4f1fb;
+}
+/*按钮*/
+.btn{
+   background-image: url(btn_bg.gif);
+   border: 1px #666 solid;
+   color:#FFF;
+   font-weight:bold;
+   height: 22px;
+}
+.btn:hover{background-image: url(btn_bg_a.gif);color:#036;}
+
+/*中部大表格样式(解释：  .T 为表头样式，    .C为表正文样式   .B为表脚样式　下同)*/
+.TB {
+   color: #003300;
+   border: 1px #65a2c5 solid;
+   border-top-width: 0px;
+}
+.TB .T{color: #5886b0; font-weight:bold; height: 25px;text-align: center;background: url(tit_bg.gif) repeat-x;}
+.TB .T td{padding:0px 3px;}
+.TB .C td, .TB .COver td{border-bottom:1px #CCf solid;border-right:1px #eee solid;}
+.TB .CSel td{border-bottom:1px white solid;}
+
+.TB .CT{
+   background-color: #ecf7fb;color:#2d5d8a;
+}
+
+.TB .COver{background-color: #e0f4ff;}
+.TB .CSel{background-color: #a3cef1;}
+.TB .B, .TB .B a{
+   background-color:#629ed6;
+   color:#333;
+}
+
+/***** 中部列表数据显示样式 (Tit代表表头， L, C, R分别代表左，中，右) *******/
+.cTit .L{background: url(tit_l.gif) left no-repeat;width:25px;}
+.cTit .C{
+   background: url(tit_c.gif) repeat-x;
+   line-height: 27px;
+   font-weight: bold;
+   color: white;
+   text-align: center;
+   letter-spacing: 3px;
+}
+.cTit .R{background:url(tit_r.gif) right no-repeat;width:25px;}
+
+/*操作成功或失败后的提示样式*/
+.Tip {
+   color: #FF0000;
+   background-color: #FFFF99;
+   border: 1px dotted #FF0000;
+   margin-top: 8px;
+   padding: 3px;
+   padding-left: 12px;
+}
+
+/***** 文字链接样式 *******/
+a{
+   color:#2d5d8a;
+}
+a:hover{
+   color: #339999;
+}
+
+/*文字样式*/
+.txtA{color: red;}
+.txtB{color:green;}
+.txtC{
+	color: #666;
+}
+.txtD{
+    font-size:14px;
+    color:#990000;
+    background-color:#ffddaa;
+}
+
+/************* 输入框样式 *****************/
+input, textarea, .zltIn0{
+  border: 1px #aaa solid;
+}
+
+/***** 输入框鼠标事件样式 *****/
+.zltIn1, input[type="text"]:focus, input[type="password"]:focus, textarea:focus{
+	border: 1px #49b8ba solid;
+	color: #41bbb4;
+	background-color: #d8f2fa;
+}

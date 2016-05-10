@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+/******* style for Top *******/
+#JD_T .T{
+   height: 72px;
+   background: url(top_bg.gif) left top repeat-x;
+}
+#JD_T .B{
+   background-color:#2e7558;
+   color:white;
+}
+ .frm_t{background:url(frm_bg_t.gif)}
+ .frm_l{background:url(frm_bg_l.gif)}
+
+.tNav1, .tNav0{cursor:pointer;margin-right: 3px;}
+.tNav1 {background-image: url(nav_c.gif);}
+.tNav1 .L {
+   background-image: url(nav_l.gif);
+   width: 2px;
+}
+.tNav1 .C{
+   height: 27px;
+   line-height: 27px;
+   padding: 0px 10px 0px 10px;
+   color: #FFFFFF;
+}
+.tNav1 .R {
+   background-image: url(nav_r.gif);
+   width: 2px;
+}
+
+.tNav0 .L {
+   background-image: url(nav_line.gif);
+   width: 2px;
+}
+.tNav0 .C {
+   height: 27px;
+   line-height: 27px;
+   padding: 0px 10px 0px 10px;
+}
+.tNav0 .R {
+   width: 2px;
+}

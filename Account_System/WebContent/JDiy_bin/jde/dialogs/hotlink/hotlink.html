@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head><title></title>
+<style type="text/css">
+    body{background-color:gainsboro;}
+    .area {
+        width: 64px;
+        height: 64px;
+        position: absolute;
+        line-height: 15px;
+    }
+
+    .area-d {
+        background-color: #ddd;
+        border: 1px #000000 dotted;
+    }
+
+    .area-d .drag {
+        background-color: white;
+        color: #000;
+        font-weight: bold;
+    }
+
+    .area-a {
+        background-color: white;
+        border: 1px red solid;
+    }
+
+    .area-a .drag {
+        background-color: yellow;
+        color: #c00;
+        font-weight: bold;
+    }
+</style>
+<script type="text/javascript" src="../../third-party/jeasyui/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../../third-party/jeasyui/jquery.easyui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../../third-party/jeasyui/themes/gray/easyui.css">
+<link rel="stylesheet" type="text/css" href="../../third-party/jeasyui/themes/icon.css">
+<script type="text/javascript" src="../../../js/class/JSer.js"></script>
+<script type="text/javascript">
+    var zIndex = 999, absArea = null;
+    function areaAdd(initData) {
+        var o = JSer("<div class='area' title=\"双击编辑超链接\" style='z-index: " + (zIndex++) + ";'>" +
+                        '<div class="drag">按住拖拽</div>' +
+                        "</div>")
+                        .prependTo('body').opacity(50).addClass('area-d').mousedown(function () {
+                            absArea = JSer(this);
+                            JSer('.area').toggleClass('area-a', 'area-d').opacity(50);
+                            absArea.toggleClass('area-d', 'area-a').opacity(75).css('zIndex', zIndex++);
+                        }).css({
+                            left:Math.max(document.documentElement.scrollLeft, document.body.scrollLeft),
+                            top:Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+                        }).data('linkinfo', {href:'http://', target:'', text:''}).dblclick(function () {
+                            if (absArea) {
+                                var d = absArea.data('linkinfo');
+                                if (d) {
+                                    JSer('#href').val(d.href);
+                                    JSer('#target').val(d.target);
+                                } else {
+                                    JSer('#href').val('http://');
+                                    JSer('#target').val('');
+                                }
+                                JSer("#tit").val(d.text);
+                                $("#linkWindow").show().dialog({
+                                    title:'热区链接设置',
+                                    modal:true,
+                                    width:400,
+                                    height:160,
+                                    buttons:[
+                                        {
+                                            text:'确定',
+                                            iconCls:'icon-ok',
+                                            handler:function () {
+                                                if (absArea) {
+                                                    var href = JSer("#href").val().trim();
+                                                    var target = JSer('#target').val();
+                                                    absArea.data('linkinfo', {
+                                                        href:href,
+                                                        target:target,
+                                                        text:JSer("#tit").val()
+                                                    });
+                                                    if (href != '' && href!="http://") {
+                                                        absArea.css('text-decoration', 'underline').css('color', 'blue');
+                                                    } else {
+                                                        absArea.css('text-decoration', '').css('color', '');
+                                                    }
+                                                }
+                                                $("#linkWindow").dialog('close');
+                                                saveAreaInfo();
+                                            }
+                                        },
+                                        {
+                                            text:'取消',
+                                            iconCls:'icon-cancel',
+                                            handler:function () {
+                                                $("#linkWindow").dialog('close');
+                                            }
+                                        }
+                                    ]
+                                });
+                            }
+
+
+                        }),
+                sizeLocker = function () {
+                    var area = JSer(this),
+                            left = parseInt(area.css('left')) || 0,
+                            top = parseInt(area.css('top')) || 0,
+                            width = area.width(),
+                            height = area.height();
+                    if (left < 0
+                            || left + width > img.width() - 2
+                            || top < 0
+                            || top + height > img.height() - 2
+                            ) return false;
+                },
+                sizer = function () {
+                    var area = JSer(this),
+                            left = parseInt(area.css('left')) || 0,
+                            top = parseInt(area.css('top')) || 0,
+                            width = area.width(),
+                            height = area.height();
+                    if (left < 0) area.css('left', left = 0);
+                    if (left + width > img.width() - 2) area.width(width = img.width() - left - 2);
+                    if (top < 0) area.css('top', top = 0);
+                    if (top + height > img.height() - 2) area.height(height = img.height() - top - 2);
+
+                    saveAreaInfo();
+                },
+                mover = function () {
+                    var area = JSer(this),
+                            left = parseInt(area.css('left')) || 0,
+                            top = parseInt(area.css('top')) || 0,
+                            width = area.width(),
+                            height = area.height();
+                    if (left < 0) area.css('left', left = 0);
+                    if (left + width > img.width() - 2) area.css('left', img.width() - width - 2);
+                    if (top < 0) area.css('top', top = 0);
+                    if (top + height > img.height() - 2) area.css('top', img.height() - height - 2);
+                    saveAreaInfo();
+                };
+        $(o[0]).resizable({
+            onResize:sizeLocker,
+            onStopResize:sizer
+        }).draggable({
+                    handle:'.drag',
+                    onDrag:sizeLocker,
+                    onStopDrag:mover
+                });
+        if(initData){
+            o.css({
+                left:initData.left,
+                top:initData.top,
+                width:initData.width,
+                height:initData.height
+            }).data('linkinfo',{
+                        target:initData.target,
+                        href:initData.href,
+                        text:initData.text
+                    });
+
+            if (initData.href != '') {
+                o.css('text-decoration', 'underline').css('color', 'blue');
+            } else {
+                o.css('text-decoration', '').css('color', '');
+            }
+        }
+    }
+
+    function areaDel() {
+        if (absArea) {
+            $.messager.confirm("提示","您真的要删除选中的热区吗？",function(y){
+                if(y){
+                    try {
+                        $("#linkWindow").dialog('close');
+                    } catch (e) {
+                    }
+                    absArea.remove();
+                    absArea = null;
+                    saveAreaInfo();
+                }
+            });
+        } else {
+            $.messager.alert('提示', '您还没有选中任何热区。', 'error');
+        }
+    }
+
+    function areaDelAll() {
+        $.messager.confirm("提示","您真的要清除全部热区信息吗？",function(y){
+            if(y){
+                try {
+                    $("#linkWindow").dialog('close');
+                } catch (e) {
+                }
+                JSer('.area').remove();
+                absArea=null;
+            }
+            saveAreaInfo();
+        });
+    }
+
+    function saveAreaInfo() {
+        var data = [];
+        JSer('.area').each(function () {
+            var o = JSer(this),
+                    d = o.data('linkinfo');
+            if (d) {
+                d.left = parseInt(o.css('left')) || 0;
+                d.top = parseInt(o.css('top')) || 0;
+                d.width = o.width();
+                d.height = o.height();
+                data.push(d);
+            }
+        });
+        var sData = data.length>0 ? encodeURIComponent(JSer.toJSON(data).replace(/[\s\r\n]/gi,"")) : '';
+        try {
+            parent.__writeAttribute(sData);
+        } catch (e) {
+        }
+    }
+
+
+    var img;
+    JSer.exec(function () {
+        var imgInfo;
+        try {
+            imgInfo = parent.__getImageInfo();
+        } catch (e) {
+            alert('发生错误：' + e);
+            return;
+        }
+        img = JSer('<img src="' + imgInfo.src + '" width="' + imgInfo.width + '" height="' + imgInfo.height + '" border="0"/>')
+                .appendTo('#body');
+        if(imgInfo.hotlink){
+            try{
+                imgInfo.areaInfo=eval('('+decodeURIComponent(imgInfo.hotlink)+')');
+            }catch(e){
+                imgInfo.areaInfo = [];
+                alert(e);
+            }
+        }
+
+        JSer.each(imgInfo.areaInfo,function(){
+            areaAdd(this);
+        });
+
+
+        (function () {
+            if (parent.__execFn) {
+                eval(parent.__execFn + '()');
+                parent.__execFn = null;
+            }
+            setTimeout(arguments.callee, 1);
+        })();
+    });
+</script>
+</head>
+<body id="body" style="margin:0;padding:0;font-size:12px;">
+<div id="linkWindow" style="display: none;"><div style="margin:5px;">
+    链接地址：<input type="text" id="href" style="width:280px;"/><br/>
+    链接目标：<select id="target">
+    <option value="">默认 _self</option>
+    <option value="_blank">新窗口 _blank</option>
+    <option value="_parent">父窗口 _parent</option>
+    <option value="_top">顶级窗口 _top</option>
+</select> <br/>
+    描述文字：<input type="text" id="tit" style="width:280px;"/> </div>
+</div>
+</body>
+</html>
